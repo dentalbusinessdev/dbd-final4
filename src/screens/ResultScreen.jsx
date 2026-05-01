@@ -529,7 +529,7 @@ export default function ResultScreen({ answers }) {
                   <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>{solutionSet.bundle.title}</div>
                   <div className="report-offer-subtitle">{solutionSet.bundle.titleAr}</div>
                 </div>
-                <Badge style={{ background: '#6d28d9', color: 'white' }}>Bundle 6 Courses</Badge>
+                <Badge style={{ background: '#6d28d9', color: 'white' }}>   Bundle 6 Courses • خصم 60% </Badge>
               </div>
               <p className="report-offer-text">{solutionSet.bundle.description}</p>
               <p className="report-offer-benefit"><strong>حجم الاستفادة:</strong> {solutionSet.bundle.benefit}</p>
