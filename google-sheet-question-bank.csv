@@ -1,0 +1,43 @@
+section,question_id,question_label_ar,input_type,required,multi_select,max_selections,conditional_rule,stores_as,allowed_values_ar,notes
+profile,clinic_name,اسم العيادة أو المركز,text,yes,no,1,always,text,أي نص باسم العيادة,يفضل استخدام الاسم التجاري الرسمي
+profile,person_name,اسم الشخص المسؤول عن التواصل,text,yes,no,1,always,text,أي اسم شخص حقيقي,يظهر في التقرير والمتابعة
+profile,person_role,ما دورك داخل المركز؟,multi,yes,yes,multiple,always,json_array,"المالك (Owner) | مدير العيادة | شريك | طبيب | مدير تشغيل | أخرى",يسمح بأكثر من اختيار
+profile,country,اختر دولتك,country,yes,no,1,always,text,"مصر | السعودية | الإمارات | قطر | الكويت | البحرين | عمان | الأردن | لبنان | سوريا | العراق | فلسطين | اليمن | ليبيا | تونس | الجزائر | المغرب | السودان | جيبوتي",نوعية بعض الأسئلة تختلف حسب البلد
+profile,city,المدينة,city,yes,no,1,always,text,أي مدينة من الدولة المختارة أو مدينة مخصصة,يمكن إضافة مدينة غير موجودة
+profile,phone_number,رقم الهاتف للتواصل (رقم واتساب),phone,yes,no,1,always,text_digits,رقم هاتف بدون كود الدولة,يتم دمج كود الدولة تلقائيًا
+profile,clinic_type,ما نوع المنشأة؟,single,yes,no,1,always,text,"عيادة فردية | مركز أسنان | مجمع طبي | عيادة تخصصية",حقل تصنيفي
+profile,clinic_years,منذ كم سنة تعمل العيادة؟,single,yes,no,1,always,text,"أقل من سنة | 1–3 سنوات | 3–7 سنوات | أكثر من 7 سنوات",يدخل في score system
+profile,chairs,كم عدد كراسي الأسنان / غرف العلاج؟,single,yes,no,1,always,text,"1 | 2–3 | 4–6 | 7+",يؤثر على سؤال الفريق
+profile,services,ما الخدمات التي تقدمونها حاليًا؟,multi,yes,yes,multiple,always,json_array,"طب الأسنان العام | تقويم الأسنان | زراعة الأسنان | تجميل الأسنان والقشور | أسنان الأطفال | علاج الجذور | علاج اللثة | جراحة الفم | التعويضات السنية",يسمح بأكثر من اختيار
+profile,primary_challenge,ما هي أهم التحديات لديكم الآن؟,multi,yes,yes,3,always,json_array,"زيادة عدد المرضى الجدد | الاحتفاظ بالمرضى الحاليين | إدارة المال والتدفق النقدي | توظيف فريق قوي والحفاظ عليه | تحسين التشغيل والكفاءة | زيادة الإيراد لكل مريض | التميّز عن المنافسين | التوسع وفتح فروع جديدة",حتى 3 اختيارات
+marketing,marketing_plan,هل لديكم خطة تسويقية واضحة؟,single,yes,no,1,always,text,"نعم | إلى حد ما | لا",تؤثر مباشرة على marketing score
+marketing,lead_source,ما هو المصدر الرئيسي الحالي للمرضى؟,single,yes,no,1,always,text,"إنستجرام / سوشيال ميديا | الإحالات (Referrals) | إعلانات ممولة مدفوعة | اللوكيشن / المرور / الخرائط | مزيج متوازن من أكثر من مصدر",يوضح اعتماد النمو على القنوات
+marketing,marketing_roi,هل تقيسون العائد من التسويق بشكل واضح؟,single,yes,no,1,always,text,"نعم | لا",يقيس وضوح التتبع
+operations,scheduling,كيف يتم حجز المواعيد وإدارتها؟,single,yes,no,1,always,text,"لدينا برنامج إدارة مواعيد | لا يوجد برنامج إدارة مواعيد | لدينا نظام آلي مدعوم بالذكاء الاصطناعي",تؤثر على operations score
+operations,no_show,ما وضع حالات عدم الحضور أو إلغاء المواعيد؟,single,yes,no,1,always,text,"منخفضة جدًا | متوسطة | مرتفعة",تؤثر على التشغيل والإيراد
+operations,kpis,هل تتابعون مؤشرات أداء واضحة للعيادة؟,single,yes,no,1,always,text,"نعم | لا",وجود KPI tracking
+finance,monthly_revenue,كيف تقيم مستوى الإيراد الحالي مقارنة بحجم العيادة وعمرها؟,single,yes,no,1,always,text,"أقل من المتوقع بوضوح | مقبول لكنه غير مستقر | جيد ومستقر | لا أستطيع التقييم بدقة",مهم جدًا في score المالي
+finance,budget,هل لديكم ميزانية وخطة مالية سنوية؟,single,yes,no,1,always,text,"نعم | لا",تؤثر على finance score
+finance,fin_challenge,ما أكبر تحدٍ مالي حاليًا؟,single,yes,no,1,always,text,"ضعف التدفق النقدي (Cash flow) | ارتفاع المصروفات | التسعير | ضعف الربحية",أهم pain مالي
+finance,case_acceptance,كيف ترى نسبة قبول خطط العلاج داخل العيادة؟,single,yes,no,1,always,text,"مرتفعة | متوسطة | ضعيفة",مرتبطة بالإيراد والتحويل
+finance,installments,هل تطبقون حلول تقسيط أو دفع مرن للحالات العلاجية؟,single,yes,no,1,always,text,"نعم بشكل واضح | بشكل محدود | لا",مهم للقبول والبيع
+finance,insurance_model,هل تعتمدون على التأمين أو الشبكات الطبية ضمن المبيعات؟,single,yes,no,1,"country in [السعودية, الإمارات, قطر, الكويت, البحرين, عمان]",text,"نعم بشكل أساسي | جزئيًا | لا",سؤال خاص بدول الخليج
+finance,gulf_pricing_mix,هل لديكم تسعير واضح بين الكاش والتأمين والعقود؟,single,yes,no,1,"country in [السعودية, الإمارات, قطر, الكويت, البحرين, عمان]",text,"نعم وواضح | جزئيًا | لا",سؤال خاص بدول الخليج
+team,team_size,ما حجم الفريق الإداري والتشغيلي؟,single,yes,no,1,always,text_dynamic,"يتغير حسب عدد الكراسي",يشمل الأطباء والتمريض والاستقبال والإداريين
+team,delegation_layer,هل يوجد مدير تشغيل / مشرف مسؤول غير الطبيب المالك؟,single,yes,no,1,"chairs in [4–6, 7+]",text,"نعم | جزئيًا | لا",سؤال شرطي حسب حجم التشغيل
+team,vision,هل لديكم رؤية واضحة وأهداف محددة للعيادة؟,single,yes,no,1,always,text,"نعم | لا",مثال: خطة سنوية ورؤية 5-10 سنوات
+team,leadership,ما مستوى ثقتك في إدارة الفريق والتفويض؟,single,yes,no,1,always,text,"عالي | متوسط | أحتاج تطوير",حقل إداري
+patient,feedback,كم مرة تجمعون تقييمات أو ملاحظات من المرضى؟,single,yes,no,1,always,text,"بشكل منتظم | أحيانًا | نادرًا أو لا يحدث",جزء من patient experience
+patient,loyalty,هل لديكم نظام واضح للاحتفاظ بالمرضى والمتابعة؟,single,yes,no,1,always,text,"نعم | يحتاج تطوير | لا",يرتبط بالولاء والمتابعة
+patient,notes,هل توجد ملاحظات إضافية عن العيادة؟,textarea,no,no,1,optional,text,أي ملاحظات إضافية أو يترك فارغًا,سؤال اختياري
+system,phone_country_code,كود الدولة,derived,yes,no,1,derived_from_country,text,"+20 | +966 | +971 | +974 | +965 | +973 | +968 | +962 | +961 | +963 | +964 | +970 | +967 | +218 | +216 | +213 | +212 | +249 | +253",يشتق من الدولة المختارة
+system,phone_whatsapp_full,رقم واتساب كامل,derived,yes,no,1,derived_from_country_plus_phone,text,full international number,يستخدم في الإرسال والمتابعة
+system,city_is_custom,هل المدينة مضافة يدويًا؟,derived,yes,no,1,derived,text,"yes | no",مفيد للمراجعة
+system,marketing_score,درجة التسويق,derived,yes,no,1,scored,number,0-100,محتسبة في الباك إند
+system,operations_score,درجة التشغيل,derived,yes,no,1,scored,number,0-100,محتسبة في الباك إند
+system,finance_score,درجة المال,derived,yes,no,1,scored,number,0-100,محتسبة في الباك إند
+system,team_score,درجة الفريق,derived,yes,no,1,scored,number,0-100,محتسبة في الباك إند
+system,patient_score,درجة تجربة المريض,derived,yes,no,1,scored,number,0-100,محتسبة في الباك إند
+system,overall_score,الدرجة الكلية,derived,yes,no,1,scored,number,0-100,متوسط الدرجات
+system,weakest_key,أضعف محور,derived,yes,no,1,diagnosis,text,"marketing | operations | finance | team | patient",للاستخدام البرمجي
+system,weakest_label,اسم أضعف محور,derived,yes,no,1,diagnosis,text,"التسويق | التشغيل | المال | الفريق | تجربة المريض",للعرض والتقارير

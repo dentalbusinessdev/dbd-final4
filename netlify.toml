@@ -1,0 +1,28 @@
+[build]
+  publish = "dist"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/assessment/submit"
+  to = "/.netlify/functions/assessment-submit"
+  status = 200
+
+[[redirects]]
+  from = "/api/report/register"
+  to = "/.netlify/functions/report-register"
+  status = 200
+
+[[redirects]]
+  from = "/api/report-upload-url"
+  to = "/.netlify/functions/report-upload-url"
+  status = 200
+
+[[redirects]]
+  from = "/api/webhooks/whatsapp-status"
+  to = "/.netlify/functions/whatsapp-status"
+  status = 200
+
+[[redirects]]
+  from = "/api/backend/status"
+  to = "/.netlify/functions/backend-status"
+  status = 200
