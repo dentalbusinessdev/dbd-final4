@@ -285,7 +285,7 @@ export default function ResultScreen({ answers }) {
           <CardContent className="stack-2">
             <strong>رابط التقرير العام</strong>
             <p className="small muted" style={{ margin: 0 }}>
-              تم حفظ رابط هذا التقرير داخل Google Sheet، ويمكن استخدامه في المتابعة اليدوية أو رسائل واتساب لاحقًا.
+              يمكنك فتح رابط التقرير مباشرة ومشاركته أو الرجوع إليه في أي وقت عند الحاجة.
             </p>
             <a className="btn btn-outline linkish" href={lastReportUrl} target="_blank" rel="noreferrer">
               فتح رابط التقرير <ExternalLink size={16} />
