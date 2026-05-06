@@ -62,25 +62,6 @@ export async function ensureHeaders(sheetName, headers) {
   return headers
 }
 
-export async function appendRow(sheetName, headers, rowObject) {
-  const actualHeaders = await ensureHeaders(sheetName, headers)
-  const values = actualHeaders.map((header) => rowObject[header] ?? '')
-  const range = `${quoteSheetName(sheetName)}!A1`
-
-  await googleSheetsFetch(`/values/${encodeURIComponent(range)}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`, {
-    method: 'POST',
-    body: JSON.stringify({ values: [values] }),
-  })
-}
-
-export async function findRowNumberByLeadId(sheetName, leadId) {
-  const range = `${quoteSheetName(sheetName)}!A:A`
-  const data = await googleSheetsFetch(`/values/${encodeURIComponent(range)}`)
-  const rows = data.values || []
-  const index = rows.findIndex((row) => row[0] === leadId)
-  return index === -1 ? null : index + 1
-}
-
 function getColumnLetter(columnIndex) {
   let dividend = columnIndex
   let columnName = ''
@@ -94,6 +75,38 @@ function getColumnLetter(columnIndex) {
   return columnName
 }
 
+export async function appendRow(sheetName, headers, rowObject) {
+  const actualHeaders = await ensureHeaders(sheetName, headers)
+  const values = actualHeaders.map((header) => rowObject[header] ?? '')
+  const columnARange = `${quoteSheetName(sheetName)}!A:A`
+  const columnAData = await googleSheetsFetch(`/values/${encodeURIComponent(columnARange)}`)
+  const rows = columnAData.values || []
+
+  let lastNonEmptyRow = 1
+  rows.forEach((row, index) => {
+    if (String(row?.[0] ?? '').trim()) {
+      lastNonEmptyRow = index + 1
+    }
+  })
+
+  const nextRow = Math.max(lastNonEmptyRow + 1, 2)
+  const endColumn = getColumnLetter(actualHeaders.length)
+  const targetRange = `${quoteSheetName(sheetName)}!A${nextRow}:${endColumn}${nextRow}`
+
+  await googleSheetsFetch(`/values/${encodeURIComponent(targetRange)}?valueInputOption=USER_ENTERED`, {
+    method: 'PUT',
+    body: JSON.stringify({ values: [values] }),
+  })
+}
+
+export async function findRowNumberByLeadId(sheetName, leadId) {
+  const range = `${quoteSheetName(sheetName)}!A:A`
+  const data = await googleSheetsFetch(`/values/${encodeURIComponent(range)}`)
+  const rows = data.values || []
+  const index = rows.findIndex((row) => row[0] === leadId)
+  return index === -1 ? null : index + 1
+}
+
 export async function updateRowByLeadId(sheetName, leadId, fields) {
   const rowNumber = await findRowNumberByLeadId(sheetName, leadId)
   if (!rowNumber) {
@@ -103,15 +116,18 @@ export async function updateRowByLeadId(sheetName, leadId, fields) {
   const headers = await getHeaderRow(sheetName)
   const updates = Object.entries(fields).filter(([, value]) => value !== undefined)
 
-  await Promise.all(updates.map(async ([field, value]) => {
-    const columnIndex = headers.indexOf(field)
-    if (columnIndex === -1) return
-    const cellRange = `${quoteSheetName(sheetName)}!${getColumnLetter(columnIndex + 1)}${rowNumber}`
-    await googleSheetsFetch(`/values/${encodeURIComponent(cellRange)}?valueInputOption=USER_ENTERED`, {
-      method: 'PUT',
-      body: JSON.stringify({ values: [[value]] }),
-    })
-  }))
+  await Promise.all(
+    updates.map(async ([field, value]) => {
+      const columnIndex = headers.indexOf(field)
+      if (columnIndex === -1) return
+
+      const cellRange = `${quoteSheetName(sheetName)}!${getColumnLetter(columnIndex + 1)}${rowNumber}`
+      await googleSheetsFetch(`/values/${encodeURIComponent(cellRange)}?valueInputOption=USER_ENTERED`, {
+        method: 'PUT',
+        body: JSON.stringify({ values: [[value]] }),
+      })
+    }),
+  )
 }
 
 export async function appendAutomationLog(rowObject, headers) {
